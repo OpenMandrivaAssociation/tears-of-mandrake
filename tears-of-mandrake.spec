@@ -96,7 +96,7 @@ for size in 16 22 24 32 48 64 128 256; do
 done
 
 %files
-%license LICENSE
+%license license
 %doc README.md
 %{_bindir}/%{name}
 %{_datadir}/%{name}
