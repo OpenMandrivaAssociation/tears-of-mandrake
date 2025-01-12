@@ -11,6 +11,7 @@ BuildArch:      noarch
 BuildRequires:  pkgconfig(python)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  imagemagick
 
 Requires:       python3 >= 3.10
 Requires:       python-gobject3
