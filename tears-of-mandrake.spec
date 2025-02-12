@@ -16,7 +16,7 @@ BuildRequires:  imagemagick
 Requires:       python3 >= 3.10
 Requires:       python-gobject3
 Requires:       python-gi
-Requires:       python-psutils
+Requires:       python-psutil
 Requires:       gtk4
 Requires:       libadwaita-common
 Requires:       %{_lib}adwaita1_0
