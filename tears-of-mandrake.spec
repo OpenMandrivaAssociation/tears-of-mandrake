@@ -1,8 +1,8 @@
 Name:           tears-of-mandrake
 Version:        0.0.0.3.0
-Release:        1
+Release:        2
 Summary:        Modern system management tool for OpenMandriva
-
+Group:		    System/Configuration/
 License:        GPLv3
 URL:            https://github.com/Tears-of-Mandrake/tears-of-mandrake
 Source0:        %{name}-%{version}.tar.gz
@@ -16,6 +16,7 @@ BuildRequires:  imagemagick
 Requires:       python3 >= 3.10
 Requires:       python-gobject3
 Requires:       python-gi
+Requires:       python-psutils
 Requires:       gtk4
 Requires:       libadwaita-common
 Requires:       %{_lib}adwaita1_0
