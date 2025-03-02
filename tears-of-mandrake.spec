@@ -2,7 +2,7 @@ Name:           tears-of-mandrake
 Version:        0.1.1
 Release:        1
 Summary:        Modern system management tool for OpenMandriva
-Group:          System/Configuration/
+Group:          System/Configuration
 License:        GPLv3
 URL:            https://github.com/Tears-of-Mandrake/tears-of-mandrake
 Source0:        https://github.com/Tears-of-Mandrake/tears-of-mandrake/archive/%{version}/%{name}-%{version}.tar.gz
