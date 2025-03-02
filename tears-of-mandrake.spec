@@ -17,6 +17,7 @@ Requires:       python3 >= 3.10
 Requires:       python-gobject3
 Requires:       python-gi
 Requires:       python-psutil
+Requires:       python-requests
 Requires:       gtk4
 Requires:       libadwaita-common
 Requires:       %{_lib}adwaita1_0
