@@ -1,0 +1,12 @@
+diff -uraN tears-of-mandrake-0.1.1/repo-test.py omv-tears-of-mandrake-0.1.1/repo-test.py
+--- tears-of-mandrake-0.1.1/repo-test.py	2025-03-02 17:35:20.000000000 +0100
++++ omv-tears-of-mandrake-0.1.1/repo-test.py	2025-05-03 17:56:44.634419562 +0200
+@@ -120,7 +120,7 @@
+             release_info = result.stdout.strip()
+             if "ROME" in release_info or "Rolling" in release_info:
+                 return "rolling"
+-            elif "ROCK" in release_info:
++            elif "Rock" in release_info:
+                 return "rock"
+             else:
+                 return "cooker"
