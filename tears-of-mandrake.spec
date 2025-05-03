@@ -1,6 +1,6 @@
 Name:           tears-of-mandrake
 Version:        0.1.1
-Release:        2
+Release:        3
 Summary:        Modern system management tool for OpenMandriva
 Group:          System/Configuration
 License:        GPLv3
