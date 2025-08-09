@@ -1,12 +1,12 @@
 Name:           tears-of-mandrake
 Version:        0.1.1
-Release:        3
+Release:        4
 Summary:        Modern system management tool for OpenMandriva
 Group:          System/Configuration
 License:        GPLv3
 URL:            https://github.com/Tears-of-Mandrake/tears-of-mandrake
 Source0:        https://github.com/Tears-of-Mandrake/tears-of-mandrake/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         tears-of-mandrake-repo-selector-fix-rock-repos.patch
+Patch0:         tears-of-mandrake-repo-selector-fix-rock-repos-adapt-to-dnf5.patch
 
 BuildArch:      noarch
 BuildRequires:  pkgconfig(python)
