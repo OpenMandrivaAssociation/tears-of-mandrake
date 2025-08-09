@@ -1,0 +1,89 @@
+diff -uraN tears-of-mandrake-0.1.1/repo-test.py omv-tears-of-mandrake-0.1.1/repo-test.py
+--- tears-of-mandrake-0.1.1/repo-test.py	2025-03-02 17:35:20.000000000 +0100
++++ omv-tears-of-mandrake-0.1.1/repo-test.py	2025-08-10 01:44:22.957957922 +0200
+@@ -120,7 +120,7 @@
+             release_info = result.stdout.strip()
+             if "ROME" in release_info or "Rolling" in release_info:
+                 return "rolling"
+-            elif "ROCK" in release_info:
++            elif "Rock" in release_info:
+                 return "rock"
+             else:
+                 return "cooker"
+@@ -129,9 +129,9 @@
+ 
+     def check_repo_enabled(self, repo_name):
+         try:
+-            # Use dnf repolist to check if repository is enabled
++            # Use dnf5 repolist to check if repository is enabled
+             result = subprocess.run(
+-                ["dnf", "repolist", "--enabled"], 
++                ["dnf5", "repolist", "--enabled"], 
+                 capture_output=True, 
+                 text=True
+             )
+@@ -182,25 +182,54 @@
+                 # Toggle individual repository
+                 enable = not self.repo_states[repo_type_arg]
+ 
+-            # Prepare command
+-            command = ["pkexec", "dnf", "config-manager", "--enable" if enable else "--disable"]
++            # Prepare command for dnf5
++            enabled_value = "1" if enable else "0"
+             
+             if repo_type_arg == "all":
+                 # If any repo is disabled, enable all. Otherwise, disable all.
+                 enable = not all(self.repo_states.values())
+-                command.extend([
+-                    f"{base_type}-x86_64-extra",
+-                    f"{base_type}-x86_64-restricted",
+-                    f"{base_type}-x86_64-non-free"
+-                ])
++                enabled_value = "1" if enable else "0"
++                
++                # Create a temporary bash script to execute multiple commands with a single pkexec
++                script_content = f"""#!/bin/bash
++                dnf5 config-manager setopt {base_type}-x86_64-extra.enabled={enabled_value}
++                dnf5 config-manager setopt {base_type}-x86_64-restricted.enabled={enabled_value}
++                dnf5 config-manager setopt {base_type}-x86_64-non-free.enabled={enabled_value}
++                """
++                
++                # Write the script to a temporary file
++                import tempfile
++                import os
++                with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.sh') as temp_file:
++                    temp_file.write(script_content)
++                    temp_script_path = temp_file.name
++                
++                # Make the script executable
++                os.chmod(temp_script_path, 0o755)
++                
++                # Create command to execute the script with pkexec
++                command = ["pkexec", temp_script_path]
++                
+             else:
+-                command.append(f"{base_type}-x86_64-{repo_type_arg}")
++                # Create command for single repository
++                command = [
++                    "pkexec", "dnf5", "config-manager", "setopt", 
++                    f"{base_type}-x86_64-{repo_type_arg}.enabled={enabled_value}"
++                ]
+ 
+             # Execute the command
++            print(f"Executing: {' '.join(command)}")
+             subprocess.run(command, check=True)
+             
+-            # Wait a moment for DNF to update its cache
+-            subprocess.run(["dnf", "clean", "expire-cache"], check=True)
++            # Clean up temporary script if it was created
++            if repo_type_arg == "all":
++                try:
++                    os.unlink(temp_script_path)
++                except Exception as e:
++                    print(f"Warning: Could not delete temporary script: {e}")
++            
++            # Wait a moment for DNF5 to update its cache
++            subprocess.run(["dnf5", "clean", "expire-cache"], check=True)
+             
+             # Verify the new states
+             self.update_repo_states()
