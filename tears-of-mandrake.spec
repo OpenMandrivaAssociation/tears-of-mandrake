@@ -1,6 +1,6 @@
 Name:           tears-of-mandrake
 Version:        0.2.0
-Release:        1
+Release:        2
 Summary:        Modern system management tool for OpenMandriva
 Group:          System/Configuration
 License:        GPLv3
@@ -26,8 +26,10 @@ Requires:       python-pip
 Requires:       polkit
 Requires:       dnf
 Requires:       yumex
-# To do
-Suggests:       system-updater
+# GUI update/install module
+Recommends:     updragora
+# For equalizer in Sound module
+Recommends:     pipewire-utils
 
 %description
 Tears of Mandrake is a modern GTK4/Libadwaita application for OpenMandriva system
